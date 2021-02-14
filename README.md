@@ -65,3 +65,21 @@ pytest -v --cov=src --cov-report=html
 * 実行パス直下にhtmlcovが作成され、その配下に出力される。
 ```
 
+## 仮想環境作成
+* ### 環境作成/パッケージインストール
+> この配下にpip3 installでパッケージがインストールされるようになる。
+> 環境無効化するとそれらは使用できなくなる。
+```sh
+$ python3 -m env py36env
+$ pip3 install -r pip3_packages_36.txt
+```
+
+* ### 環境有効化
+```sh
+$ source py36env/bin/activate
+```
+
+* ### 環境無効化
+```sh
+$ deactive
+```
