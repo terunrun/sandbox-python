@@ -1,30 +1,25 @@
-"""SFTPでリモートサーバからローカルにファイルを取得しGCSに移動する"""
+"""SFTPでリモートサーバからローカルにファイルを取得する"""
 
 import consts
 import os
 import paramiko
-import subprocess
 
-# SFTP接続先の設定
-HOST = '接続先IPアドレス'
-PORT = 22
-USER = 'ユーザ名'
-PASSWORD = 'パスワード'
-REMOTE_PATH = 'ダウンロード対象パス'
-LOCAL_PATH = 'ダウンロードするローカルパス'
-DESTINATION_BUCKET = 'アップロードするGCSパス'
+# SFTP接続先を環境変数から取得する
+HOST = os.environ.get('SFTP_HOST') #IPアドレス
+PORT = os.environ.get('SFTP_PORT') #ポート
+USER = os.environ.get('SFTP_USERNAME') #ユーザ名
+PASSWORD = os.environ.get('SFTP_PASSWORD') #パスワード
+
+# ファイル情報
+FILE_NAME = 'test.txt' #取得するファイル名称
+REMOTE_PATH = '/home/ubuntu/' #ダウンロード対象パス
+LOCAL_PATH = '/tmp/' #ダウンロードするローカルパス
 
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy)
 client.connect(HOST, port=PORT, username=USER, password=PASSWORD)
 try:
     sftp_connection = client.open_sftp()
-    sftp_connection.get(REMOTE_PATH, LOCAL_PATH)
+    sftp_connection.get(REMOTE_PATH + FILE_NAME, LOCAL_PATH + FILE_NAME)
 finally:
     client.close()
-
-# TODO:リトライ設定を実装する
-# or
-# google-cloud-storageパッケージを使用する
-command = 'gsutil mv {0} gs://{1}/test/'.format(LOCAL_PATH, DESTINATION_BUCKET)
-ret = subprocess.run(command.split())

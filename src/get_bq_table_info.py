@@ -2,9 +2,9 @@
 
 from datetime import datetime, timedelta, timezone
 from google.cloud import bigquery
-import consts
 import get_today
 import pprint
+import consts
 
 TABLE_NAME = 'import.test_table'
 

@@ -1,0 +1,1 @@
+select * from `test.test_table_*` where _TABLE_SUFFIX = @date
