@@ -1,4 +1,4 @@
-'''Secret Manager から情報を取得する'''
+"""Secret Manager から情報を取得する"""
 
 from google.cloud import secretmanager
 import consts

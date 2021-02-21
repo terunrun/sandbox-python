@@ -1,4 +1,4 @@
-""" CloudFunctionsのエンドポイントURLを実行する"""
+"""任意のURLへリクエストを発行する"""
 
 import requests
 import google.auth.transport.requests
